@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Start Site</title>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const user = JSON.parse(sessionStorage.getItem('user'));
+            if (!user) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            document.getElementById('welcome-text').textContent = `Welcome ${user.name} from ${user.department}!`;
+
+            document.getElementById('logout-button').addEventListener('click', () => {
+                sessionStorage.removeItem('user');
+                window.location.href = 'login.html';
+            });
+
+            window.addEventListener('unload', () => {
+                sessionStorage.removeItem('user');
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1 id="welcome-text"></h1>
+    <button id="logout-button">Logout</button>
+</body>
+</html>
